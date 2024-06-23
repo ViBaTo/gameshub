@@ -1,0 +1,47 @@
+#click-game-container {
+  position: relative;
+  width: 100%;
+  height: 500px; /* Ajusta la altura del contenedor del juego */
+  background-color: #ffffff;
+  border: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+#click-score-display {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+button {
+  font-size: 16px;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+
+.target {
+  position: absolute;
+  width: 60px; /* Ajustar tamaño para un área más grande */
+  height: 60px; /* Ajustar tamaño para un área más grande */
+  background-color: red;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.target::before {
+  content: '';
+  position: absolute;
+  width: 80px; /* Área clicable mayor */
+  height: 80px; /* Área clicable mayor */
+  background-color: transparent;
+  border-radius: 50%;
+  pointer-events: all;
+}
