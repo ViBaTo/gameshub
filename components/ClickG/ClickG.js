@@ -38,7 +38,7 @@ function juegoClick() {
     updateScore()
     startButton.disabled = true
     gameInterval = setInterval(showTarget, 1000)
-    setTimeout(endGame, 10000) // El juego dura 10 segundos
+    setTimeout(endGame, 10000)
   }
 
   function showTarget() {
@@ -47,7 +47,7 @@ function juegoClick() {
     target.style.top = `${Math.random() * 90}%`
     target.style.left = `${Math.random() * 90}%`
     target.onclick = (event) => {
-      event.stopPropagation() // Asegura que el evento no se propague
+      event.stopPropagation()
       score++
       updateScore()
       target.remove()
