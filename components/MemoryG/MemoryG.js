@@ -23,10 +23,25 @@ function juegoMemoria() {
 
   const scoreDisplay = document.createElement('div')
   scoreDisplay.id = 'memory-score'
-  scoreDisplay.textContent = `Puntuación: ${matchedPairs}`
   gameBoard.appendChild(scoreDisplay)
 
-  const cardsContainer = document.createElement('div') // Contenedor para las cartas
+  function updateScore() {
+    scoreDisplay.textContent = `Puntuación: ${matchedPairs}`
+  }
+
+  function saveScore() {
+    localStorage.setItem('memory-game-score', matchedPairs)
+  }
+
+  function loadScore() {
+    const savedScore = localStorage.getItem('memory-game-score')
+    if (savedScore !== null) {
+      matchedPairs = parseInt(savedScore)
+      updateScore()
+    }
+  }
+
+  const cardsContainer = document.createElement('div')
   cardsContainer.id = 'cards-container'
   cardsContainer.style.display = 'grid'
   cardsContainer.style.gridTemplateColumns = 'repeat(4, 1fr)'
@@ -65,6 +80,7 @@ function juegoMemoria() {
       disableCards()
       matchedPairs++
       updateScore()
+      saveScore()
       checkGameOver()
     } else {
       unflipCards()
@@ -92,15 +108,6 @@ function juegoMemoria() {
     ;[firstCard, secondCard, lockBoard] = [null, null, false]
   }
 
-  function updateScore() {
-    scoreDisplay.textContent = `Puntuación: ${matchedPairs}`
-  }
-
-  function resetScore() {
-    matchedPairs = 0
-    updateScore()
-  }
-
   function checkGameOver() {
     if (matchedPairs === colors.length / 2) {
       setTimeout(() => {
@@ -112,7 +119,6 @@ function juegoMemoria() {
 
   function resetGame() {
     cardsContainer.innerHTML = ''
-    resetScore()
     colors.sort(() => 0.5 - Math.random())
     colors.forEach((color) => {
       const card = document.createElement('div')
@@ -123,7 +129,8 @@ function juegoMemoria() {
     })
   }
 
-  resetGame() // Inicializar el juego al cargar
+  loadScore()
+  resetGame()
 
   return gameBoard
 }

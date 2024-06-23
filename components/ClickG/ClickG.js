@@ -12,13 +12,26 @@ function juegoClick() {
 
   const scoreDisplay = document.createElement('div')
   scoreDisplay.id = 'click-score-display'
-  scoreDisplay.textContent = `Puntuación: ${
-    localStorage.getItem('click-game-score') || 0
-  }`
   gameContainer.appendChild(scoreDisplay)
 
   let score = 0
   let gameInterval
+
+  function loadScore() {
+    const savedScore = localStorage.getItem('click-game-score')
+    if (savedScore !== null) {
+      score = parseInt(savedScore)
+      updateScore()
+    }
+  }
+
+  function saveScore() {
+    localStorage.setItem('click-game-score', score)
+  }
+
+  function updateScore() {
+    scoreDisplay.textContent = `Puntuación: ${score}`
+  }
 
   function startGame() {
     score = 0
@@ -34,6 +47,7 @@ function juegoClick() {
     target.style.top = `${Math.random() * 90}%`
     target.style.left = `${Math.random() * 90}%`
     target.onclick = (event) => {
+      event.stopPropagation() // Asegura que el evento no se propague
       score++
       updateScore()
       target.remove()
@@ -46,26 +60,18 @@ function juegoClick() {
     clearInterval(gameInterval)
     startButton.disabled = false
     alert(`Juego terminado! Puntuación final: ${score}`)
-    localStorage.setItem('click-game-score', score)
+    saveScore()
     resetGame() // Reiniciar el juego al finalizar
   }
 
-  function updateScore() {
-    scoreDisplay.textContent = `Puntuación: ${score}`
-  }
-
-  function resetScore() {
-    score = 0
-    updateScore()
-  }
-
   function resetGame() {
-    resetScore()
+    updateScore()
     const targets = document.querySelectorAll('.target')
     targets.forEach((target) => target.remove())
   }
 
-  resetGame() // Restablecer la puntuación al cargar la página
+  loadScore()
+  resetGame()
 
   return gameContainer
 }
