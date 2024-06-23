@@ -9,7 +9,6 @@ function tresEnRaya() {
   let board = Array(9).fill(null)
   const cells = []
 
-  // Función para renderizar el tablero
   function renderBoard() {
     gameBoard.innerHTML = ''
     board.forEach((cell, index) => {
@@ -23,7 +22,6 @@ function tresEnRaya() {
     })
   }
 
-  // Función para manejar el clic en una celda
   function handleClick(event) {
     const index = event.target.dataset.index
     if (board[index]) return
@@ -33,7 +31,6 @@ function tresEnRaya() {
     checkWinner()
   }
 
-  // Función para comprobar si hay un ganador
   function checkWinner() {
     const winningCombinations = [
       [0, 1, 2],
@@ -61,14 +58,13 @@ function tresEnRaya() {
     }
   }
 
-  // Función para reiniciar el juego
   function resetGame() {
     board = Array(9).fill(null)
     currentPlayer = 'X'
     renderBoard()
   }
 
-  resetGame() // Inicializar el juego al cargar
+  resetGame()
 
   return gameBoard
 }

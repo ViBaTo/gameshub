@@ -8,6 +8,10 @@ function juegoClickPage(navigate) {
   header.textContent = 'Juego de Click Rápido'
   page.appendChild(header)
 
+  const info = document.createElement('h4')
+  info.textContent = 'Doble click para puntuar'
+  page.appendChild(info)
+
   page.appendChild(juegoClick())
 
   return page
