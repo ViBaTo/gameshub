@@ -13,7 +13,8 @@ nav {
   flex-wrap: wrap;
   max-width: 100%;
   border-radius: 20px;
-  margin: var(--spacing-m);
+  margin: var(--spacing-l);
+  gap: 20px;
 }
 
 nav a {

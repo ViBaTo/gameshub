@@ -2,12 +2,26 @@ import './3nRaya.css'
 
 function tresEnRaya() {
   const gameBoard = document.createElement('div')
-  gameBoard.id = 'tres-en-raya-board'
-  gameBoard.className = 'card'
+  gameBoard.id = 'tic-tac-toe-board'
 
   let currentPlayer = 'X'
   let board = Array(9).fill(null)
   const cells = []
+
+  function loadGame() {
+    const savedBoard = JSON.parse(localStorage.getItem('tic-tac-toe-board'))
+    const savedPlayer = localStorage.getItem('tic-tac-toe-player')
+    if (savedBoard && savedPlayer) {
+      board = savedBoard
+      currentPlayer = savedPlayer
+      renderBoard()
+    }
+  }
+
+  function saveGame() {
+    localStorage.setItem('tic-tac-toe-board', JSON.stringify(board))
+    localStorage.setItem('tic-tac-toe-player', currentPlayer)
+  }
 
   function renderBoard() {
     gameBoard.innerHTML = ''
@@ -27,6 +41,7 @@ function tresEnRaya() {
     if (board[index]) return
     board[index] = currentPlayer
     currentPlayer = currentPlayer === 'X' ? 'O' : 'X'
+    saveGame()
     renderBoard()
     checkWinner()
   }
@@ -61,10 +76,12 @@ function tresEnRaya() {
   function resetGame() {
     board = Array(9).fill(null)
     currentPlayer = 'X'
+    saveGame()
     renderBoard()
   }
 
-  resetGame()
+  loadGame()
+  renderBoard()
 
   return gameBoard
 }
